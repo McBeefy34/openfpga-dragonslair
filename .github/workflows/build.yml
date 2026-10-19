@@ -20,7 +20,6 @@ jobs:
   synth:
     name: Quartus build
     runs-on: ubuntu-latest
-    container: raetro/quartus:21.1
     steps:
       - uses: actions/checkout@v4
         with:
@@ -46,8 +45,9 @@ jobs:
           sed -i '/mf_pllbase.qip/d; /mf_pllbase.sip/d' ap_core.qsf
 
       - name: Compile
-        working-directory: build
-        run: quartus_sh --flow compile ap_core
+        run: |
+          docker run --rm -v "$PWD/build:/build" -w /build \
+            raetro/quartus:21.1 quartus_sh --flow compile ap_core
 
       - name: Timing summary
         if: always()
