@@ -1,0 +1,204 @@
+{
+    "interact": {
+        "magic": "APF_VER_1",
+        "variables": [
+            {
+                "name": "Lives",
+                "id": 1,
+                "type": "list",
+                "enabled": true,
+                "persist": true,
+                "address": "0x80000000",
+                "defaultval": "0x20",
+                "mask": "0xFFFFFFDF",
+                "options": [
+                    {
+                        "value": "0x00",
+                        "name": "3"
+                    },
+                    {
+                        "value": "0x20",
+                        "name": "5"
+                    }
+                ]
+            },
+            {
+                "name": "Coinage",
+                "id": 2,
+                "type": "list",
+                "enabled": true,
+                "persist": true,
+                "address": "0x80000000",
+                "defaultval": "0x00",
+                "mask": "0xFFFFFFFE",
+                "options": [
+                    {
+                        "value": "0x00",
+                        "name": "2 Coins 1 Credit"
+                    },
+                    {
+                        "value": "0x01",
+                        "name": "3 Coins 1 Credit"
+                    }
+                ]
+            },
+            {
+                "name": "Free Play",
+                "id": 3,
+                "type": "check",
+                "enabled": true,
+                "persist": true,
+                "address": "0x80000000",
+                "defaultval": 0,
+                "value": "0x10",
+                "value_off": "0x00",
+                "mask": "0xFFFFFFEF"
+            },
+            {
+                "name": "Pay As You Go",
+                "id": 4,
+                "type": "check",
+                "enabled": true,
+                "persist": true,
+                "address": "0x80000000",
+                "defaultval": 0,
+                "value": "0x40",
+                "value_off": "0x00",
+                "mask": "0xFFFFFFBF"
+            },
+            {
+                "name": "Difficulty Mode",
+                "id": 5,
+                "type": "list",
+                "enabled": true,
+                "persist": true,
+                "address": "0x80000000",
+                "defaultval": "0x00",
+                "mask": "0xFFFFFFFB",
+                "options": [
+                    {
+                        "value": "0x04",
+                        "name": "Mode 1"
+                    },
+                    {
+                        "value": "0x00",
+                        "name": "Mode 2"
+                    }
+                ]
+            },
+            {
+                "name": "Engineering Mode",
+                "id": 6,
+                "type": "check",
+                "enabled": true,
+                "persist": true,
+                "address": "0x80000000",
+                "defaultval": 0,
+                "value": "0x08",
+                "value_off": "0x00",
+                "mask": "0xFFFFFFF7"
+            },
+            {
+                "name": "Diagnostics",
+                "id": 7,
+                "type": "check",
+                "enabled": true,
+                "persist": true,
+                "address": "0x80000000",
+                "defaultval": 0,
+                "value": "0x80",
+                "value_off": "0x00",
+                "mask": "0xFFFFFF7F"
+            },
+            {
+                "name": "Difficulty",
+                "id": 8,
+                "type": "list",
+                "enabled": true,
+                "persist": true,
+                "address": "0x80000004",
+                "defaultval": "0x10",
+                "mask": "0xFFFFFF6F",
+                "options": [
+                    {
+                        "value": "0x00",
+                        "name": "Increase after 5"
+                    },
+                    {
+                        "value": "0x10",
+                        "name": "Increase after 9"
+                    },
+                    {
+                        "value": "0x80",
+                        "name": "Easy"
+                    }
+                ]
+            },
+            {
+                "name": "Unlimited Dirks",
+                "id": 9,
+                "type": "check",
+                "enabled": true,
+                "persist": true,
+                "address": "0x80000004",
+                "defaultval": 0,
+                "value": "0x04",
+                "value_off": "0x00",
+                "mask": "0xFFFFFFFB"
+            },
+            {
+                "name": "Demo Sounds",
+                "id": 10,
+                "type": "check",
+                "enabled": true,
+                "persist": true,
+                "address": "0x80000004",
+                "defaultval": 1,
+                "value": "0x00",
+                "value_off": "0x02",
+                "mask": "0xFFFFFFFD"
+            },
+            {
+                "name": "Sound Every 8 Attracts",
+                "id": 11,
+                "type": "check",
+                "enabled": true,
+                "persist": true,
+                "address": "0x80000004",
+                "defaultval": 1,
+                "value": "0x01",
+                "value_off": "0x00",
+                "mask": "0xFFFFFFFE"
+            },
+            {
+                "name": "Pay As You Go Option",
+                "id": 12,
+                "type": "list",
+                "enabled": true,
+                "persist": true,
+                "address": "0x80000004",
+                "defaultval": "0x60",
+                "mask": "0xFFFFFF9F",
+                "options": [
+                    {
+                        "value": "0x00",
+                        "name": "PAYG1"
+                    },
+                    {
+                        "value": "0x20",
+                        "name": "PAYG2"
+                    },
+                    {
+                        "value": "0x40",
+                        "name": "PAYG3"
+                    },
+                    {
+                        "value": "0x60",
+                        "name": "PAYG4"
+                    }
+                ]
+            }
+        ],
+        "messages": []
+    }
+}

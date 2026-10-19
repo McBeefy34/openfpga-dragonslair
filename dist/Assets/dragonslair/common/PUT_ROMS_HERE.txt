@@ -1,0 +1,2 @@
+Put dlair.rom here (built with tools/make_rom.py from MAME's dlair set).
+Later milestones will also read the converted disc video from this folder.

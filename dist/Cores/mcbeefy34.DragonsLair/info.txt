@@ -1,0 +1,15 @@
+Dragon's Lair (Cinematronics, 1983) - US LD-V1000 revisions
+
+Milestone 1 build. The real game program runs on an emulated Z80 board and
+drives an emulated Pioneer LD-V1000. Instead of disc video the screen shows
+what the player is doing: mode, status byte, last command, current disc
+frame, plus the cabinet's LED scoreboard. Disc video and audio streaming
+from SD card is the next milestone.
+
+ROM: build dlair.rom from MAME's dlair set (Rev F2) with tools/make_rom.py
+and copy it to /Assets/dragonslair/common/.
+
+Controls: D-pad = joystick, A/B = sword, Start = start 1, Select = coin 1,
+Y = start 2, X = coin 2.
+
+https://github.com/mcbeefy34/openfpga-dragonslair
