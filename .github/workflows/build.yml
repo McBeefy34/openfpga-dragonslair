@@ -51,11 +51,11 @@ jobs:
 
       - name: Timing summary
         if: always()
-        working-directory: build
         shell: bash
         run: |
-          grep -A12 'Slow 1100mV 85C Model Setup Summary' output_files/ap_core.sta.rpt || true
-          grep -i 'Total logic elements\|Total block memory\|Total registers' output_files/ap_core.fit.summary || true
+          [ -d build/output_files ] || { echo "no build output - see the failed step above"; exit 0; }
+          grep -A12 'Slow 1100mV 85C Model Setup Summary' build/output_files/ap_core.sta.rpt || true
+          grep -i 'Total logic elements\|Total block memory\|Total registers' build/output_files/ap_core.fit.summary || true
 
       - uses: actions/upload-artifact@v4
         with:
