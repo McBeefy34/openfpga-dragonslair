@@ -1,0 +1,82 @@
+name: Build core
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Verilator tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Verilator
+        run: sudo apt-get update && sudo apt-get install -y verilator
+      - name: Run simulations
+        run: make -C sim
+
+  synth:
+    name: Quartus build
+    runs-on: ubuntu-latest
+    container: raetro/quartus:21.1
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: core
+
+      - uses: actions/checkout@v4
+        with:
+          repository: open-fpga/core-template
+          ref: da3a021b1eaf742604d86d8dc9b33a6666263e6a
+          path: template
+
+      - name: Assemble project
+        shell: bash
+        run: |
+          set -e
+          cp -r template/src/fpga build
+          cp core/src/fpga/core/* build/core/
+          cp -r core/src/fpga/rtl build/rtl
+          cd build
+          echo 'set_global_assignment -name QIP_FILE rtl/dlair.qip' >> ap_core.qsf
+          sed -i '/SIGNALTAP_FILE/d; /SLD_FILE/d; /USE_SIGNALTAP_FILE/d' ap_core.qsf
+          sed -i 's/set_global_assignment -name ENABLE_SIGNALTAP ON/set_global_assignment -name ENABLE_SIGNALTAP OFF/' ap_core.qsf
+          sed -i '/mf_pllbase.qip/d; /mf_pllbase.sip/d' ap_core.qsf
+
+      - name: Compile
+        working-directory: build
+        run: quartus_sh --flow compile ap_core
+
+      - name: Timing summary
+        if: always()
+        working-directory: build
+        shell: bash
+        run: |
+          grep -A12 'Slow 1100mV 85C Model Setup Summary' output_files/ap_core.sta.rpt || true
+          grep -i 'Total logic elements\|Total block memory\|Total registers' output_files/ap_core.fit.summary || true
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: rbf
+          path: build/output_files/ap_core.rbf
+
+  package:
+    name: Package for SD card
+    needs: [synth]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: rbf
+      - name: Reverse bitstream and lay out SD folders
+        run: |
+          mkdir -p pkg
+          cp -r dist/* pkg/
+          python3 tools/reverse_rbf.py ap_core.rbf "pkg/Cores/mcbeefy34.DragonsLair/bitstream.rbf_r"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: openfpga-dragonslair-sd
+          path: pkg/
