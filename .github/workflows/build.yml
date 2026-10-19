@@ -39,10 +39,11 @@ jobs:
           cp core/src/fpga/core/* build/core/
           cp -r core/src/fpga/rtl build/rtl
           cd build
-          echo 'set_global_assignment -name QIP_FILE rtl/dlair.qip' >> ap_core.qsf
           sed -i '/SIGNALTAP_FILE/d; /SLD_FILE/d; /USE_SIGNALTAP_FILE/d' ap_core.qsf
           sed -i 's/set_global_assignment -name ENABLE_SIGNALTAP ON/set_global_assignment -name ENABLE_SIGNALTAP OFF/' ap_core.qsf
           sed -i '/mf_pllbase.qip/d; /mf_pllbase.sip/d' ap_core.qsf
+          printf '\nset_global_assignment -name QIP_FILE rtl/dlair.qip\n' >> ap_core.qsf
+          tail -3 ap_core.qsf
 
       - name: Compile
         run: |
